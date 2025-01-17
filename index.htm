@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Age Calculator</title>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #73a5ff, #5477f5);
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        padding: 20px 40px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        max-width: 400px;
+        width: 100%;
+    }
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #ffda79;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    label {
+        font-size: 1rem;
+        margin-bottom: 5px;
+        text-align: left;
+    }
+    input {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        outline: none;
+    }
+    button {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        background: #ff7b54;
+        color: #fff;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+    button:hover {
+        background: #ff5a33;
+    }
+    #result {
+        margin-top: 20px;
+        font-size: 1.2rem;
+        color: #ffda79;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h2>Age Calculator</h2>
+        <form id="ageCalculator">
+            <label for="dob">Enter Your Date of Birth:</label>
+            <input type="number" id="dob" name="dob" placeholder="Day (1-31)" min="1" max="31" required>
+            <input type="number" id="mob" name="mob" placeholder="Month (1-12)" min="1" max="12" required>
+            <input type="number" id="yob" name="yob" placeholder="Year (e.g., 1990)" min="1900" max="2025" required>
+            <button type="submit">Calculate Age</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('ageCalculator').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            
+            var day = parseInt(document.getElementById('dob').value);
+            var month = parseInt(document.getElementById('mob').value) - 1; // Months are 0-11
+            var year = parseInt(document.getElementById('yob').value);
+
+            var birthDate = new Date(year, month, day);
+
+          
+            var currentDate = new Date();
+
+            
+            var age = currentDate.getFullYear() - birthDate.getFullYear();
+            var monthDiff = currentDate.getMonth() - birthDate.getMonth();
+            
+            
+            if (monthDiff < 0 || (monthDiff === 0 && currentDate.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+          
+            document.getElementById('result').innerHTML = `<p>Your age is: ${age} years</p>`;
+        });
+    </script>
+</body>
+</html>
